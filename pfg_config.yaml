@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Apr  3 08:47:26 2025
+
+@author: Scotty Lumb
+"""
+
+
+
+
+ra_folder_structure:
+    client:
+      project_folder:
+        analysis:
+          readme_required: true
+        gis:
+          readme_required: false
+          plots:
+            readme_required: false
+          overlays:
+            readme_required: false
+        git:
+          readme_required: false
+        src:
+          readme_required: true
