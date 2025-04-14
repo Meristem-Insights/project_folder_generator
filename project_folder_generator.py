@@ -109,25 +109,41 @@ def main():
             return
     elif  client_status == "new":
         root_folder_name = input("enter new client name: ")
+        
+        
     else:
         print("Invalid input. Please enter either 'new' or 'existing'.")
         return
 
+
+    base_path = f"P:\\{root_folder_name}"
+    
     # Get the project folder name from the user
     project_name = input("Enter the project folder name (e.g., 'TSA_evaluation'): ")
 
-    # # Load the folder structure from YAML
-    # with open('pfg_config.yaml', "r", encoding="utf-8") as f:
-    #     pfg_config = yaml.safe_load(f)
-    
+
+
+
+
     base_structure = pfg_config.get('ra_folder_structure', {}).get("client", {})
 
     # Set the folder structure based on the selected project
     folder_structure = {project_name: base_structure.get("project_folder", {})}
 
-    # Create the base path for the new project
+    # Check if project folder already exists
+    print(f"P:\\{root_folder_name}\\{project_name}")
+    if os.path.exists(f"P:\\{root_folder_name}\\{project_name}"):
+        print('got here')
+        overwrite = input(f"\nWARNING: The folder P:\\{root_folder_name}\\{project_name} already exists. Overwrite? (yes/no): ").lower()
+        if overwrite != "yes":
+            print("Operation cancelled.")
+            return
+        else:
+            print("Overwriting existing folder structure...")
     # base_path = f"P:\\{root_folder_name}\\{project_name}"
-    base_path = f"P:\\{root_folder_name}"
+
+    print('TESSST')
+    
     # Create the folder structure
     create_folders(base_path, folder_structure)
     print("Folder structure created successfully.")
