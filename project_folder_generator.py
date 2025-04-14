@@ -60,13 +60,6 @@ def check_readme_requirement(folder_name, folder_structure):
     return False
 
 
-# def check_readme_requirement(folder_name, folder_structure):
-#     """Check if a README is required for a folder and warn if missing."""
-#     folder_parts = folder_name.split("/")
-#     folder_config = folder_structure
-#     for part in folder_parts:
-#         folder_config = folder_config.get(part, {})
-#     return folder_config.get("readme_required", False)
 
 def create_folders(base_path, folder_structure):
     """Recursively create folders and copy README files if required."""
@@ -131,18 +124,21 @@ def main():
     folder_structure = {project_name: base_structure.get("project_folder", {})}
 
     # Check if project folder already exists
-    print(f"P:\\{root_folder_name}\\{project_name}")
     if os.path.exists(f"P:\\{root_folder_name}\\{project_name}"):
-        print('got here')
-        overwrite = input(f"\nWARNING: The folder P:\\{root_folder_name}\\{project_name} already exists. Overwrite? (yes/no): ").lower()
-        if overwrite != "yes":
-            print("Operation cancelled.")
-            return
-        else:
-            print("Overwriting existing folder structure...")
+        print(f'''the path: P:\\{root_folder_name}\\{project_name} already exists please rename new folder or manually delete folder youre trying to overwrite 
+              note: this script is precluded from overwriting files to prevent inadvertent deletions - must be done manually. ''')
+        return
+  
+    
+    # if os.path.exists(f"P:\\{root_folder_name}\\{project_name}"):
+    #     overwrite = input(f"\nWARNING: The folder P:\\{root_folder_name}\\{project_name} already exists. Overwrite? (yes/no): ").lower()
+    #     if overwrite != "yes":
+    #         print("Operation cancelled.")
+    #         return
+    #     else:
+    #         print("Overwriting existing folder structure...")
     # base_path = f"P:\\{root_folder_name}\\{project_name}"
 
-    print('TESSST')
     
     # Create the folder structure
     create_folders(base_path, folder_structure)
@@ -153,51 +149,6 @@ def main():
     copy_readmes(f"P:\\{root_folder_name}\\{project_name}", readme_folder)
     print("README files copied successfully.")
 
-# def main():
-
-
-#     # Ask the user if the client is new or existing
-#     client_status = input("Is the client new or existing? (new/existing): ").lower()
-    
-#     if client_status == "existing":
-#         # List existing client folders in P:\ and let the user select one
-#         print("\nExisting clients:")
-#         existing_clients = get_existing_clients(r'P:\\')
-#         if existing_clients:
-#             for idx, client in enumerate(existing_clients, 1):
-#                 print(f"{idx}. {client}")
-#             client_choice = int(input("\nSelect a client by number: ")) - 1
-#             if 0 <= client_choice < len(existing_clients):
-#                 root_folder_name = existing_clients[client_choice]
-#                 print(f"\nProceeding with existing client '{root_folder_name}'")
-#             else:
-#                 print("Invalid selection.")
-#                 return
-#         else:
-#             print("No existing clients found in P:\\.")
-#             return
-#     elif client_status != "new":
-#         print("Invalid input. Please enter either 'new' or 'existing'.")
-#         return
-
-#     # Get the root folder name dynamically from the user input
-#     project_name = input("Enter the project folder name (e.g., 'TSA evaluation'): ")
-
-#     base_structure = pfg_config.get('ra_folder_structure', {}).get("client", {})
-    
-    
-#     folder_structure = {project_name: base_structure.get("project_folder", {})}
-
-
-#     # Extract the folder structure for the selected root folder
-#     # folder_structure = pfg_config.get('ra_folder_structure', {}).get("client", {})
-
-
-#     # base_path = "./output_structure"  # Change this to your desired root directory
-#     base_path = f"P:\\{root_folder_name}"
-    
-#     create_folders(base_path, folder_structure, readme_folder)
-#     print("Folder structure created successfully.")
 
 #################################
 #################################
@@ -211,15 +162,8 @@ def main():
 with open(r'P:\RA\project_folder_generator\pfg_config.yaml', "r", encoding="utf-8") as f:
     pfg_config = yaml.safe_load(f)
     
-# Get the root folder name dynamically from the user input
-# root_folder_name = input("Enter the root folder name (e.g., 'client'): ")
 
-# Extract the folder structure under 'ra_folder_structure'
-# folder_structure = pfg_config.get('ra_folder_structure', {}).get(root_folder_name, {})
-
-# Folder structure should now be dynamic based on user input
-
-readme_folder = "readmes"  # Folder where README files are stored
+readme_folder = "readmes"  # Folder where README files are stored relative to main script
 
 #################################
 #################################
